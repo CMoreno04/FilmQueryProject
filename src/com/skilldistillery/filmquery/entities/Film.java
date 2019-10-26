@@ -40,33 +40,11 @@ public class Film {
 
 	@Override
 	public String toString() {
-		StringBuilder builder = new StringBuilder();
-		builder.append("Film [id=");
-		builder.append(id);
-		builder.append(", title=");
-		builder.append(title);
-		builder.append(", description=");
-		builder.append(description);
-		builder.append(", releaseDate=");
-		builder.append(releaseDate);
-		builder.append(", languageId=");
-		builder.append(languageId);
-		builder.append(", rentalDuration=");
-		builder.append(rentalDuration);
-		builder.append(", rentalRate=");
-		builder.append(rentalRate);
-		builder.append(", length=");
-		builder.append(length);
-		builder.append(", replacemenytCost=");
-		builder.append(replacemenytCost);
-		builder.append(", rating=");
-		builder.append(rating);
-		builder.append(", specialFeatures=");
-		builder.append(specialFeatures);
-		builder.append(", actors=");
-		builder.append(actors);
-		builder.append("]");
-		return builder.toString();
+		return "Title: " + getTitle() + 
+				"\nMovie Year :" + getReleaseDate() + 
+				"\nMovie Rating: " + getRating()+ 
+				"\nMovie Discription: " + getDescription();
+		
 	}
 
 	public Integer getId() {
