@@ -1,5 +1,7 @@
 package com.skilldistillery.filmquery.entities;
 
+import java.util.List;
+
 public class Film {
 	private Integer id;
 	private String title;
@@ -12,6 +14,7 @@ public class Film {
 	private Double replacemenytCost;
 	private String rating;
 	private String specialFeatures;
+	private List<Actor> actors;
 
 	public Film() {
 		super();
@@ -19,7 +22,7 @@ public class Film {
 
 	public Film(Integer id, String title, String description, Integer releaseDate, Integer languageId,
 			Integer rentalDuration, Integer rentalRate, Integer length, Double replacemenytCost, String rating,
-			String specialFeatures) {
+			String specialFeatures, List<Actor> actors) {
 		super();
 		this.id = id;
 		this.title = title;
@@ -32,6 +35,7 @@ public class Film {
 		this.replacemenytCost = replacemenytCost;
 		this.rating = rating;
 		this.specialFeatures = specialFeatures;
+		this.actors = actors;
 	}
 
 	@Override
@@ -59,6 +63,8 @@ public class Film {
 		builder.append(rating);
 		builder.append(", specialFeatures=");
 		builder.append(specialFeatures);
+		builder.append(", actors=");
+		builder.append(actors);
 		builder.append("]");
 		return builder.toString();
 	}
@@ -151,10 +157,19 @@ public class Film {
 		this.specialFeatures = specialFeatures;
 	}
 
+	public List<Actor> getActors() {
+		return actors;
+	}
+
+	public void setActors(List<Actor> actors) {
+		this.actors = actors;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + ((actors == null) ? 0 : actors.hashCode());
 		result = prime * result + ((description == null) ? 0 : description.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((languageId == null) ? 0 : languageId.hashCode());
@@ -178,6 +193,11 @@ public class Film {
 		if (getClass() != obj.getClass())
 			return false;
 		Film other = (Film) obj;
+		if (actors == null) {
+			if (other.actors != null)
+				return false;
+		} else if (!actors.equals(other.actors))
+			return false;
 		if (description == null) {
 			if (other.description != null)
 				return false;

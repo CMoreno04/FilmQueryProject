@@ -8,6 +8,11 @@ public class Actor {
 	private String lastName;
 	private List<Film> films;
 
+	
+	public Actor() {
+		super();
+	}
+	
 	public Actor(int id, String firstName, String lastName, List<Film> films) {
 		super();
 		this.id = id;

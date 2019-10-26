@@ -1,19 +1,12 @@
 package com.skilldistillery.filmquery.app;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.Scanner;
 
 import com.skilldistillery.filmquery.database.DatabaseAccessor;
 import com.skilldistillery.filmquery.database.DatabaseAccessorObject;
-import com.skilldistillery.filmquery.entities.Actor;
 import com.skilldistillery.filmquery.entities.Film;
 
 public class FilmQueryApp {
-
 
 	DatabaseAccessor db = new DatabaseAccessorObject();
 
@@ -35,6 +28,6 @@ public class FilmQueryApp {
 	}
 
 	private void startUserInterface(Scanner input) {
-		
+
 	}
 }

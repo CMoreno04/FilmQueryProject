@@ -13,15 +13,21 @@ import com.skilldistillery.filmquery.entities.Film;
 
 public class DatabaseAccessorObject implements DatabaseAccessor {
 	private static final String URL = "jdbc:mysql://localhost:3306/sdvid?useSSL=false";
+	private static Connection conn;
+	private static PreparedStatement stmnt;
+	private static ResultSet rs;
 
 	static {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-		} catch (ClassNotFoundException e) {
+			String user = "student";
+			String pass = "student";
+			conn = DriverManager.getConnection(URL, user, pass);
+		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 		}
 	}
-	
+
 	@Override
 	public Film findFilmById(int filmId) {
 
@@ -30,36 +36,81 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 
 	@Override
 	public Actor findActorById(int actorId) {
-		String user = "student";
-		String pass = "student";
-		String sqlTxt = "INSERT SQL COMMAND";
-
 		Actor actor = null;
 
-		try (Connection conn = DriverManager.getConnection(URL, user, pass);
-				PreparedStatement stmnt = conn.prepareStatement(sqlTxt);
-				ResultSet rs = stmnt.executeQuery();) {
+		String sqlTxt = "SELECT * FROM actor JOIN film_actor ON film_id = film.id JOIN actor ON actor.id = actor_id WHERE actor.id LIKE ?";
+
+		try {
+			stmnt = conn.prepareStatement(sqlTxt);
+			stmnt.setInt(1, actorId);
+			rs = stmnt.executeQuery();
 
 			while (rs.next()) {
-				actor.setFilms();
+				actor = new Actor();
+
+				actor.setId(rs.getInt("actor.id"));
+				actor.setFirstName(rs.getString("actor.first_name"));
+				actor.setLastName(rs.getString("actor.last_name"));
+				actor.setFilms(findActorsFilms(actorId));
+
 			}
+			stmnt.close();
+			rs.close();
+
 		}
 
 		catch (SQLException e) {
 			e.printStackTrace();
 		}
 
-		finally {
-			return actor;
+		return actor;
 
-		}
 	}
 
 	@Override
 	public List<Actor> findActorsByFilmId(int filmId) {
-		List<Actor> films = new ArrayList<>();
+
+		return null;
+	}
+
+	private List<Film> findActorsFilms(int actorId) {
+		List<Film> films = new ArrayList<>();
+		
+		Film film;
+		String sqlTxt = "SELECT * FROM actor JOIN film_actor ON film_id = film.id JOIN actor ON actor.id = actor_id WHERE actor.id LIKE ?";
+
+		try {
+			stmnt = conn.prepareStatement(sqlTxt);
+			stmnt.setInt(1, actorId);
+			rs = stmnt.executeQuery();
+
+			while (rs.next()) {
+				film = new Film();
+				
+				film.setDescription(rs.getString("film.description"));
+				film.setId(rs.getInt("film.id"));
+				film.setLanguageId(rs.getInt("film.language_id"));
+				film.setLength(rs.getInt("film.length"));
+				film.setActors(findActorsByFilmId(film.getId()));
+				
+				
+				
+				
+				
+				
+				films.add(film);
+			}
+			stmnt.close();
+			rs.close();
+
+		}
+
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
 
 		return films;
+
 	}
 
 }
