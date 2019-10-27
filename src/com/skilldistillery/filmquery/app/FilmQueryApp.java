@@ -23,7 +23,7 @@ public class FilmQueryApp {
 
 	private void startUserInterface(Scanner kb) {
 		while (true) {
-			System.out.println("********************MENU********************");
+			System.out.println("********************MAIN MENU********************");
 			System.out.println("1.Look up a film by its id.");
 			System.out.println("2.Look up a film by a search keyword.");
 			System.out.println("3.Exit the application.");
@@ -33,7 +33,6 @@ public class FilmQueryApp {
 
 			case "1":
 				filmIDSubMenu();
-
 				break;
 
 			case "2":
@@ -41,6 +40,7 @@ public class FilmQueryApp {
 				break;
 
 			case "3":
+				db.closeConnection();
 				System.out.println("Goodbye!");
 				System.exit(0);
 				break;
@@ -72,8 +72,8 @@ public class FilmQueryApp {
 		}
 
 		do {
-			System.out.println("****************************");
-			System.out.println("\n1.Return To Main Menu.");
+			System.out.println("\n****************************");
+			System.out.println("1.Return To Main Menu.");
 			System.out.println("2.View all films details.");
 			System.out.println("****************************");
 

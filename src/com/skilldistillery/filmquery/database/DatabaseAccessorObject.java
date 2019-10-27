@@ -25,6 +25,14 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 			e.printStackTrace();
 		}
 	}
+ @Override
+	public void closeConnection() {
+		try {
+			conn.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
 
 	@Override
 	public Film findFilmById(int filmId) {
@@ -114,8 +122,7 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 		Actor actor = null;
 
 		String sqlTxt = "SELECT * " + "FROM film " + "JOIN film_actor ON film_id = film.id "
-				+ "JOIN actor ON actor.id = actor_id " + "JOIN language ON film.language_id = language.id "
-				+ "JOIN film_category ON film_category.film_id = film.id WHERE film.id LIKE ?";
+				+ "JOIN actor ON actor.id = actor_id WHERE actor.id LIKE ?";
 
 		try {
 			PreparedStatement stmnt = conn.prepareStatement(sqlTxt);
@@ -193,8 +200,8 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 
 		Film film = null;
 
-		String sqlTxt = "SELECT * FROM film " + "JOIN language ON film.language_id = language.id "
-				+ "JOIN film_category ON film_category.film_id= film.id "
+		String sqlTxt = "SELECT * " + "FROM film " + "JOIN language ON film.language_id = language.id "
+				+ "JOIN film_category ON film_category.film_id= film.id " + "JOIN category ON category.id=category_id "
 				+ "WHERE film.description OR film.title LIKE ?";
 
 		try {
@@ -218,6 +225,7 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 				film.setRentalRate(rs.getInt("film.rental_rate"));
 				film.setReplacemenytCost(rs.getDouble("film.replacement_cost"));
 				film.setSpecialFeatures(rs.getString("film.special_features"));
+				film.setCategory(rs.getString("category.name"));
 
 				films.add(film);
 			}
