@@ -1,5 +1,6 @@
 package com.skilldistillery.filmquery.app;
 
+import java.util.List;
 import java.util.Scanner;
 
 import com.skilldistillery.filmquery.database.DatabaseAccessor;
@@ -8,7 +9,6 @@ import com.skilldistillery.filmquery.entities.Film;
 
 public class FilmQueryApp {
 	private Scanner kb = new Scanner(System.in);
-
 	private DatabaseAccessor db = new DatabaseAccessorObject();
 
 	public static void main(String[] args) {
@@ -32,13 +32,12 @@ public class FilmQueryApp {
 			switch (kb.next()) {
 
 			case "1":
-				filmSubMenu();
+				filmIDSubMenu();
 
 				break;
 
 			case "2":
-				System.out.print("Please Enter Desired Keyword: \n");
-				System.out.print(checkIfObjectIsNull(db.findFilmByKeyWord(kb.next())) + "\n");
+				filmKeyWordSubMenu();
 				break;
 
 			case "3":
@@ -47,6 +46,7 @@ public class FilmQueryApp {
 				break;
 
 			default:
+				System.out.println("Invalid Entry, Please Try Again!");
 				break;
 			}
 		}
@@ -60,19 +60,58 @@ public class FilmQueryApp {
 		}
 	}
 
-	private void filmSubMenu() {
+	private void filmKeyWordSubMenu() {
+		Boolean loop = true;
+		List<Film> films = null;
+
+		System.out.print("Please Enter Desired Keyword: ");
+		films = db.findFilmByKeyWord(kb.next());
+
+		for (int i = 0; i < films.size(); i++) {
+			System.out.println(films.get(i).toString());
+		}
+
+		do {
+			System.out.println("****************************");
+			System.out.println("\n1.Return To Main Menu.");
+			System.out.println("2.View all films details.");
+			System.out.println("****************************");
+
+			switch (kb.next()) {
+			case "1":
+				loop = false;
+				break;
+
+			case "2":
+				for (Film film : films) {
+					System.out.print(film.showAllDetails());
+				}
+				break;
+
+			default:
+				System.out.println("Invalid Entry, Please Try Again");
+				break;
+			}
+
+		} while (loop);
+
+	}
+
+	private void filmIDSubMenu() {
 		Boolean loop = true;
 		Film film = null;
+
+		System.out.print("Plase Input Desired Movie ID: \n");
+		film = db.findFilmById(Integer.parseInt(kb.next()));
+
+		checkIfObjectIsNull(film);
+		System.out.print(film.toString());
+
 		do {
-			System.out.print("Plase Input Desired Movie ID: \n");
-
-			film = db.findFilmById(Integer.parseInt(kb.next()));
-
-			checkIfObjectIsNull(film);
-			System.out.print(film.toString());
-
-			System.out.println("1.Return To Main Menu");
-			System.out.println("2. View");
+			System.out.println("\n****************************");
+			System.out.println("1.Return To Main Menu.");
+			System.out.println("2.View all film details.");
+			System.out.println("****************************");
 
 			switch (kb.next()) {
 			case "1":
@@ -82,7 +121,7 @@ public class FilmQueryApp {
 				System.out.println(film.showAllDetails());
 				break;
 			default:
-				System.out.println("Invalid Entry");
+				System.out.println("Invalid Entry, Please Try Again");
 				break;
 			}
 

@@ -30,7 +30,10 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 	public Film findFilmById(int filmId) {
 		Film film = null;
 
-		String sqlTxt = "SELECT * FROM film JOIN film_actor ON film_id = film.id JOIN actor ON actor.id = actor_id JOIN language ON film.language_id = language.id WHERE film.id LIKE ?";
+		String sqlTxt = "SELECT * " + "FROM film " + "JOIN film_actor ON film_id = film.id "
+				+ "JOIN actor ON actor.id = actor_id " + "JOIN language ON film.language_id = language.id "
+				+ "JOIN film_category ON film_category.film_id= film.id " + "JOIN category ON category.id=category_id "
+				+ "WHERE film.id LIKE ?";
 
 		try {
 			PreparedStatement stmnt = conn.prepareStatement(sqlTxt);
@@ -53,6 +56,7 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 				film.setReplacemenytCost(rs.getDouble("film.replacement_cost"));
 				film.setSpecialFeatures(rs.getString("film.special_features"));
 				film.setLanguage(rs.getString("name"));
+				film.setCategory(rs.getString("category.name"));
 
 			}
 			stmnt.close();
@@ -72,10 +76,11 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 	@Override
 	public List<Actor> findActorsByFilmId(int filmId) {
 		List<Actor> actors = new ArrayList<>();
-
 		Actor actor = null;
 
-		String sqlTxt = "SELECT * FROM film JOIN film_actor ON film_id = film.id JOIN actor ON actor.id = actor_id JOIN language ON film.language_id = language.id WHERE film.id LIKE ?";
+		String sqlTxt = "SELECT * " + "FROM film " + "JOIN film_actor ON film_id = film.id "
+				+ "JOIN actor ON actor.id = actor_id " + "JOIN language ON film.language_id = language.id "
+				+ "JOIN film_category ON film_category.film_id = film.id WHERE film.id LIKE ?";
 
 		try {
 			PreparedStatement stmnt = conn.prepareStatement(sqlTxt);
@@ -108,7 +113,9 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 	public Actor findActorById(int actorId) {
 		Actor actor = null;
 
-		String sqlTxt = "SELECT * FROM film JOIN film_actor ON film_id = film.id JOIN actor ON actor.id = actor_id JOIN language ON film.language_id = language.id WHERE film.id LIKE ?";
+		String sqlTxt = "SELECT * " + "FROM film " + "JOIN film_actor ON film_id = film.id "
+				+ "JOIN actor ON actor.id = actor_id " + "JOIN language ON film.language_id = language.id "
+				+ "JOIN film_category ON film_category.film_id = film.id WHERE film.id LIKE ?";
 
 		try {
 			PreparedStatement stmnt = conn.prepareStatement(sqlTxt);
@@ -142,7 +149,8 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 
 		Film film = null;
 
-		String sqlTxt = "SELECT * FROM film JOIN film_actor ON film_id = film.id JOIN actor ON actor.id = actor_id JOIN language ON film.language_id = language.id WHERE film.id LIKE ?";
+		String sqlTxt = "SELECT * " + "FROM film " + "JOIN film_actor ON film_id = film.id "
+				+ "JOIN actor ON actor.id = actor_id " + "WHERE actor.id LIKE ?";
 
 		try {
 			PreparedStatement stmnt = conn.prepareStatement(sqlTxt);
@@ -185,7 +193,9 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 
 		Film film = null;
 
-		String sqlTxt = "SELECT * FROM film JOIN film_actor ON film_id = film.id JOIN actor ON actor.id = actor_id WHERE film.description OR film.title LIKE ?;";
+		String sqlTxt = "SELECT * FROM film " + "JOIN language ON film.language_id = language.id "
+				+ "JOIN film_category ON film_category.film_id= film.id "
+				+ "WHERE film.description OR film.title LIKE ?";
 
 		try {
 			PreparedStatement stmnt = conn.prepareStatement(sqlTxt);
@@ -200,6 +210,7 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 				film.setDescription(rs.getString("film.description"));
 				film.setLanguageId(rs.getInt("film.language_id"));
 				film.setLength(rs.getInt("film.length"));
+				film.setLanguage(rs.getString("name"));
 				film.setActors(findActorsByFilmId(film.getId()));
 				film.setRating(rs.getString("film.rating"));
 				film.setReleaseDate(rs.getInt("film.release_year"));

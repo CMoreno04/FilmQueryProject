@@ -15,7 +15,10 @@ public class Film {
 	private String rating;
 	private String specialFeatures;
 	private String language;
+	private String category;
+	private String condition;
 	private List<Actor> actors;
+	private List<Film> inventory;
 
 	public Film() {
 		super();
@@ -23,7 +26,7 @@ public class Film {
 
 	public Film(Integer id, String title, String description, Integer releaseDate, Integer languageId,
 			Integer rentalDuration, Integer rentalRate, Integer length, Double replacemenytCost, String rating,
-			String specialFeatures, List<Actor> actors, String language) {
+			String specialFeatures, String language, String category, String condition, List<Actor> actors) {
 		super();
 		this.id = id;
 		this.title = title;
@@ -36,8 +39,10 @@ public class Film {
 		this.replacemenytCost = replacemenytCost;
 		this.rating = rating;
 		this.specialFeatures = specialFeatures;
-		this.actors = actors;
 		this.language = language;
+		this.category = category;
+		this.condition = condition;
+		this.actors = actors;
 	}
 
 	@Override
@@ -59,41 +64,35 @@ public class Film {
 
 	public String showAllDetails() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("Film Id:");
+		builder.append("\nFilm Id: ");
 		builder.append(id);
-		builder.append("\n Title: ");
+		builder.append("\nTitle: ");
 		builder.append(title);
-		builder.append("\n Description: ");
+		builder.append("\nDescription: ");
 		builder.append(description);
-		builder.append("\n Release Date: ");
+		builder.append("\nRelease Date: ");
 		builder.append(releaseDate);
-		builder.append("\n Language Id: ");
+		builder.append("\nLanguage Id: ");
 		builder.append(languageId);
-		builder.append("\n Rental Duration: ");
+		builder.append("\nRental Duration: ");
 		builder.append(rentalDuration);
-		builder.append("\n Rental Rate:");
+		builder.append("\nRental Rate: ");
 		builder.append(rentalRate);
-		builder.append("\n Length: ");
+		builder.append("\nLength: ");
 		builder.append(length);
-		builder.append("\n Replacemenyt Cost: ");
+		builder.append("\nReplacemenyt Cost: ");
 		builder.append(replacemenytCost);
-		builder.append("\n Rating: ");
+		builder.append("\nRating: ");
 		builder.append(rating);
-		builder.append("\n Special Features: ");
+		builder.append("\nSpecial Features: ");
 		builder.append(specialFeatures);
-		builder.append("\n Language: ");
+		builder.append("\nLanguage: ");
 		builder.append(language);
-		builder.append("\n Cast: ");
+		builder.append("\nCategory: ");
+		builder.append(category);
+		builder.append("\n\nCast: ");
 		builder.append(showCast());
 		return builder.toString();
-	}
-
-	public String getLanguage() {
-		return language;
-	}
-
-	public void setLanguage(String language) {
-		this.language = language;
 	}
 
 	public Integer getId() {
@@ -184,6 +183,30 @@ public class Film {
 		this.specialFeatures = specialFeatures;
 	}
 
+	public String getLanguage() {
+		return language;
+	}
+
+	public void setLanguage(String language) {
+		this.language = language;
+	}
+
+	public String getCategory() {
+		return category;
+	}
+
+	public void setCategory(String category) {
+		this.category = category;
+	}
+
+	public String getCondition() {
+		return condition;
+	}
+
+	public void setCondition(String condition) {
+		this.condition = condition;
+	}
+
 	public List<Actor> getActors() {
 		return actors;
 	}
@@ -191,14 +214,24 @@ public class Film {
 	public void setActors(List<Actor> actors) {
 		this.actors = actors;
 	}
+	public List<Film> getInvenotry() {
+		return inventory;
+	}
+	
+	public void setInventory(List<Film> inventory) {
+		this.inventory = inventory;
+	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((actors == null) ? 0 : actors.hashCode());
+		result = prime * result + ((category == null) ? 0 : category.hashCode());
+		result = prime * result + ((condition == null) ? 0 : condition.hashCode());
 		result = prime * result + ((description == null) ? 0 : description.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((language == null) ? 0 : language.hashCode());
 		result = prime * result + ((languageId == null) ? 0 : languageId.hashCode());
 		result = prime * result + ((length == null) ? 0 : length.hashCode());
 		result = prime * result + ((rating == null) ? 0 : rating.hashCode());
@@ -225,6 +258,16 @@ public class Film {
 				return false;
 		} else if (!actors.equals(other.actors))
 			return false;
+		if (category == null) {
+			if (other.category != null)
+				return false;
+		} else if (!category.equals(other.category))
+			return false;
+		if (condition == null) {
+			if (other.condition != null)
+				return false;
+		} else if (!condition.equals(other.condition))
+			return false;
 		if (description == null) {
 			if (other.description != null)
 				return false;
@@ -234,6 +277,11 @@ public class Film {
 			if (other.id != null)
 				return false;
 		} else if (!id.equals(other.id))
+			return false;
+		if (language == null) {
+			if (other.language != null)
+				return false;
+		} else if (!language.equals(other.language))
 			return false;
 		if (languageId == null) {
 			if (other.languageId != null)
@@ -282,5 +330,7 @@ public class Film {
 			return false;
 		return true;
 	}
+	
+	
 
 }
