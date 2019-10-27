@@ -8,11 +8,10 @@ public class Actor {
 	private String lastName;
 	private List<Film> films;
 
-	
 	public Actor() {
 		super();
 	}
-	
+
 	public Actor(int id, String firstName, String lastName, List<Film> films) {
 		super();
 		this.id = id;
@@ -23,17 +22,7 @@ public class Actor {
 
 	@Override
 	public String toString() {
-		StringBuilder builder = new StringBuilder();
-		builder.append("Actor [id=");
-		builder.append(id);
-		builder.append(", firstName=");
-		builder.append(firstName);
-		builder.append(", lastName=");
-		builder.append(lastName);
-		builder.append(", films=");
-		builder.append(films);
-		builder.append("]");
-		return builder.toString();
+		return firstName + " " + lastName;
 	}
 
 	public int getId() {

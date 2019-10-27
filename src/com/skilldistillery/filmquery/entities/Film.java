@@ -14,6 +14,7 @@ public class Film {
 	private Double replacemenytCost;
 	private String rating;
 	private String specialFeatures;
+	private String language;
 	private List<Actor> actors;
 
 	public Film() {
@@ -22,7 +23,7 @@ public class Film {
 
 	public Film(Integer id, String title, String description, Integer releaseDate, Integer languageId,
 			Integer rentalDuration, Integer rentalRate, Integer length, Double replacemenytCost, String rating,
-			String specialFeatures, List<Actor> actors) {
+			String specialFeatures, List<Actor> actors, String language) {
 		super();
 		this.id = id;
 		this.title = title;
@@ -36,15 +37,63 @@ public class Film {
 		this.rating = rating;
 		this.specialFeatures = specialFeatures;
 		this.actors = actors;
+		this.language = language;
 	}
 
 	@Override
 	public String toString() {
-		return "Title: " + getTitle() + 
-				"\nMovie Year :" + getReleaseDate() + 
-				"\nMovie Rating: " + getRating()+ 
-				"\nMovie Discription: " + getDescription();
-		
+		return "\nTitle: " + getTitle() + "\nYear Released:" + getReleaseDate() + "\nRating: " + getRating()
+				+ "\nLanguage: " + getLanguage() + "\nDiscription: " + getDescription() + "\n\nCast: " + showCast();
+
+	}
+
+	private String showCast() {
+		StringBuilder cast = new StringBuilder();
+		cast.append("\n");
+
+		for (Actor actor : actors) {
+			cast.append(actor.toString() + "  \n");
+		}
+		return cast.toString();
+	}
+
+	public String showAllDetails() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("Film Id:");
+		builder.append(id);
+		builder.append("\n Title: ");
+		builder.append(title);
+		builder.append("\n Description: ");
+		builder.append(description);
+		builder.append("\n Release Date: ");
+		builder.append(releaseDate);
+		builder.append("\n Language Id: ");
+		builder.append(languageId);
+		builder.append("\n Rental Duration: ");
+		builder.append(rentalDuration);
+		builder.append("\n Rental Rate:");
+		builder.append(rentalRate);
+		builder.append("\n Length: ");
+		builder.append(length);
+		builder.append("\n Replacemenyt Cost: ");
+		builder.append(replacemenytCost);
+		builder.append("\n Rating: ");
+		builder.append(rating);
+		builder.append("\n Special Features: ");
+		builder.append(specialFeatures);
+		builder.append("\n Language: ");
+		builder.append(language);
+		builder.append("\n Cast: ");
+		builder.append(showCast());
+		return builder.toString();
+	}
+
+	public String getLanguage() {
+		return language;
+	}
+
+	public void setLanguage(String language) {
+		this.language = language;
 	}
 
 	public Integer getId() {
