@@ -27,6 +27,6 @@ The user will have the opportunity to search for films within a database by usin
 - GitHub
 
 ### Lessons Learned
-- Double check the prepared statements, make sure the statement is getting the necessary information and making the necessary joints in accordance to the method.
+- Double check the prepared statements, make sure the statement is getting the correct information and making the necessary joints in accordance to the method.
 - Make tailored SQL prepared statements for each method, this will prevent confusion and also the query of unnecessary information.
-- This project helped me to conceptualize and practice the union between Java and SQL, it was a very fun but challenging project. 
+- This project helped me to conceptualize and practice the union between Java and SQL, it was a very fun but challenging project.
