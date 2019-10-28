@@ -66,9 +66,10 @@ public class FilmQueryApp {
 
 		System.out.print("Please Enter Desired Keyword: ");
 		films = db.findFilmByKeyWord(kb.next());
+		checkIfObjectIsNull(films);
 
-		for (int i = 0; i < films.size(); i++) {
-			System.out.println(films.get(i).toString());
+		for (Film film : films) {
+			System.out.println(film);
 		}
 
 		do {
@@ -102,10 +103,11 @@ public class FilmQueryApp {
 		Film film = null;
 
 		System.out.print("Plase Input Desired Movie ID: \n");
-		film = db.findFilmById(Integer.parseInt(kb.next()));
 
-		checkIfObjectIsNull(film);
-		System.out.print(film.toString());
+		film = db.findFilmById(Integer.parseInt(kb.next()));
+		
+
+		System.out.print(checkIfObjectIsNull(film));
 
 		do {
 			System.out.println("\n****************************");
